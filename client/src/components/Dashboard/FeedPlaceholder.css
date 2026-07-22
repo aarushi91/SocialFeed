@@ -1,0 +1,61 @@
+.feed{
+
+    flex:1;
+
+    background:rgba(255,255,255,.06);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:25px;
+
+    padding:35px;
+
+    color:white;
+
+}
+
+.feed h2{
+
+    margin-bottom:30px;
+
+}
+
+.placeholder{
+
+    background:rgba(255,255,255,.05);
+
+    border-left:5px solid #2563eb;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    margin-bottom:22px;
+
+    transition:.3s;
+
+}
+
+.placeholder:hover{
+
+    transform:translateY(-5px);
+
+    background:rgba(255,255,255,.08);
+
+}
+
+.placeholder h3{
+
+    margin-bottom:10px;
+
+}
+
+.placeholder p{
+
+    color:#cbd5e1;
+
+    line-height:1.6;
+
+}
