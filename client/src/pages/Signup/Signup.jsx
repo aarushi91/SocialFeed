@@ -1,7 +1,8 @@
 import "./Signup.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { registerUser } from "../../api/authApi";
 
 function Signup() {
 
@@ -12,6 +13,9 @@ function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const validateForm = () => {
     let newErrors = {};
@@ -41,6 +45,42 @@ function Signup() {
     setErrors(newErrors);
 
     return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSignup = async () => {
+
+    if (!validateForm()) return;
+
+    try {
+
+      setLoading(true);
+
+      const username = email.split("@")[0];
+
+      const response = await registerUser({
+        fullName: name,
+        username,
+        email,
+        password,
+      });
+
+      alert(response.data.message);
+
+      navigate("/login");
+
+    } catch (error) {
+
+      alert(
+        error.response?.data?.message ||
+        "Registration Failed"
+      );
+
+    } finally {
+
+      setLoading(false);
+
+    }
+
   };
 
   return (
@@ -90,10 +130,7 @@ function Signup() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-
-              if (validateForm()) {
-                alert("Account Created Successfully!");
-              }
+              handleSignup();
             }}
           >
 
@@ -185,10 +222,11 @@ function Signup() {
 
             </div>
 
-            <button className="signup-btn">
-
-              Create Account
-
+            <button
+              className="signup-btn"
+              disabled={loading}
+            >
+              {loading ? "Creating..." : "Create Account"}
             </button>
 
           </form>

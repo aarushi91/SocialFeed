@@ -2,6 +2,7 @@ import "./Login.css";
 import { useState } from "react";
 import { FaComments, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../../api/authApi";
 
 function Login() {
 
@@ -34,6 +35,35 @@ function Login() {
     setErrors(newErrors);
 
     return Object.keys(newErrors).length === 0;
+  };
+
+  const handleLogin = async () => {
+    if (!validateForm()) return;
+
+    try {
+      setLoading(true);
+
+      const response = await loginUser({
+        email,
+        password,
+      });
+
+      // Save JWT Token
+      localStorage.setItem("token", response.data.token);
+
+      alert(response.data.message);
+
+      navigate("/dashboard");
+
+    } catch (error) {
+
+      alert(
+        error.response?.data?.message || "Login Failed"
+      );
+
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -82,10 +112,7 @@ function Login() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-
-              if (validateForm()) {
-                alert("Login Successful!");
-              }
+              handleLogin();
             }}
           >
 
@@ -141,8 +168,11 @@ function Login() {
               Forgot Password?
             </div>
 
-            <button className="login-btn">
-              Login
+            <button
+              className="login-btn"
+              disabled={loading}
+            >
+              {loading ? "Logging in..." : "Login"}
             </button>
 
           </form>
