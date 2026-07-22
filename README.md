@@ -1,132 +1,184 @@
 # 🌐 SocialFeed - MERN Social Media Platform
 
-SocialFeed is a modern social media web application built using the MERN Stack. The project aims to provide users with a platform where they can connect with friends, share posts, communicate in real-time, and explore content.
+SocialFeed is a full-stack social media web application built using the MERN Stack (MongoDB, Express.js, React.js, Node.js). It provides a modern platform where users can create accounts, securely log in, manage their profiles, and interact through future social networking features.
 
-This repository currently contains the frontend implementation for the first evaluation.
-
----
-
-## 🚀 Project Status
-
-✅ Phase 1 Completed (Frontend)
-
-- Responsive Landing Page
-- Authentication UI
-- React Routing
-- Form Validation
-- Password Visibility Toggle
-- Modern UI Design
-
-Backend integration will be added in the next phase.
+This project is being developed incrementally as part of an internship evaluation with multiple development phases.
 
 ---
 
-## 📸 Features
+# 🚀 Project Status
 
-### 🏠 Landing Page
-
-- Modern Hero Section
-- Responsive Navigation Bar
-- Feature Cards
-- Professional Footer
-- Smooth Navigation
-- Fully Responsive Design
-
-### 🔐 Authentication
-
-#### Login Page
-
-- Email Validation
-- Password Validation
-- Empty Field Validation
-- Show/Hide Password
-- Google Login Button (UI)
-- Navigation to Signup Page
-
-#### Signup Page
-
-- Full Name
-- Email
-- Password
-- Confirm Password
-- Password Match Validation
-- Show/Hide Password
-- Google Signup Button (UI)
-- Navigation to Login Page
-
----
-
-## 🛠 Tech Stack
+## ✅ Evaluation 1 Completed
 
 ### Frontend
 
+- Responsive Landing Page
+- Login Page
+- Signup Page
+- React Router Navigation
+- Form Validation
+- Password Visibility Toggle
+- Modern Responsive UI
+
+---
+
+## ✅ Evaluation 2 Completed
+
+### Backend
+
+- Express Server
+- MongoDB Atlas Integration
+- Mongoose Configuration
+- Environment Variables
+- REST APIs
+
+### Authentication
+
+- User Registration
+- User Login
+- Password Hashing using bcryptjs
+- JWT Token Generation
+- Protected Routes
+- Authentication Middleware
+
+### Dashboard
+
+- Protected Dashboard
+- User Profile
+- Dynamic User Information
+- Logout Functionality
+- Feed Placeholder
+- Responsive Dashboard UI
+
+---
+
+# ✨ Features
+
+## 🏠 Landing Page
+
+- Responsive Navigation Bar
+- Hero Section
+- Feature Cards
+- Professional Footer
+- Modern Responsive Design
+
+---
+
+## 🔐 Authentication
+
+### Signup
+
+- Full Name
+- Username
+- Email Validation
+- Password Validation
+- Confirm Password
+- Password Hashing
+- MongoDB Storage
+- Duplicate Email Check
+- Duplicate Username Check
+
+### Login
+
+- Email Validation
+- Password Validation
+- JWT Authentication
+- Secure Login
+- Local Storage Token
+- Redirect to Dashboard
+
+---
+
+## 👤 Dashboard
+
+- Protected Route
+- User Profile
+- Avatar
+- Username
+- Email
+- Bio
+- Online Status
+- Logout Button
+- Feed Preview
+- Responsive Design
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
 - React.js
 - React Router DOM
+- Axios
 - CSS3
 - React Icons
 
-### Backend (Upcoming)
+## Backend
 
 - Node.js
 - Express.js
-- MongoDB
-- JWT Authentication
-- bcrypt.js
+- MongoDB Atlas
+- Mongoose
+- JWT
+- bcryptjs
+- dotenv
+- CORS
 
 ---
 
-## 📁 Folder Structure
+# 📂 Project Structure
 
 ```
-src/
+Real-Time-Social-Media/
+
 │
-├── assets/
+├── client/
 │
-├── components/
-│   ├── Navbar.jsx
-│   ├── Hero.jsx
-│   ├── Features.jsx
-│   └── Footer.jsx
+│   ├── src/
+│   │
+│   ├── assets/
+│   ├── api/
+│   ├── components/
+│   ├── pages/
+│   ├── App.jsx
+│   └── main.jsx
 │
-├── pages/
-│   ├── Home.jsx
-│   ├── Login.jsx
-│   └── Signup.jsx
-│
-├── App.jsx
-├── main.jsx
-└── index.css
+└── server/
+    │
+    ├── src/
+    │
+    ├── config/
+    ├── controllers/
+    ├── middleware/
+    ├── models/
+    ├── routes/
+    ├── server.js
+    │
+    └── .env
 ```
 
 ---
 
-## ⚙ Installation
+# ⚙ Installation
 
-Clone the repository
+## Clone Repository
 
 ```bash
 git clone https://github.com/aarushi91/socialfeed.git
 ```
 
-Go inside the project
+---
+
+## Install Client
 
 ```bash
-cd socialfeed
-```
-
-Install dependencies
-
-```bash
+cd client
 npm install
-```
-
-Run the project
-
-```bash
 npm run dev
 ```
 
-Open
+Runs on
 
 ```
 http://localhost:5173
@@ -134,71 +186,119 @@ http://localhost:5173
 
 ---
 
-## 📌 Current Progress
+## Install Server
 
-### ✅ Completed
+```bash
+cd server
+npm install
+npm run dev
+```
+
+Runs on
+
+```
+http://localhost:5000
+```
+
+---
+
+# 🔐 API Endpoints
+
+## Authentication
+
+### Register
+
+```
+POST /api/auth/register
+```
+
+### Login
+
+```
+POST /api/auth/login
+```
+
+### Get Profile
+
+```
+GET /api/auth/profile
+```
+
+Requires JWT Token.
+
+---
+
+# 📌 Completed Modules
+
+## Frontend
 
 - Landing Page
-- Navigation Bar
 - Hero Section
+- Navbar
 - Features Section
 - Footer
 - Login Page
 - Signup Page
-- React Routing
-- Form Validation
-- Password Visibility Toggle
-
-### 🚧 Upcoming
-
 - Dashboard
-- User Authentication (Backend)
-- MongoDB Integration
+- Protected Routing
+
+## Backend
+
+- Express Server
+- MongoDB Atlas
+- Mongoose
+- Authentication APIs
 - JWT Authentication
-- User Profile
-- News Feed
+- bcrypt Password Encryption
+- Profile API
+- Authentication Middleware
+
+---
+
+# 🚧 Upcoming (Evaluation 3)
+
 - Create Post
-- Like & Comment
-- Real-Time Chat
-- Notifications
+- Display Posts
+- Like Posts
+- Comment System
+- Image Upload
+- Feed API
+- Create Post API
+
+---
+
+# 🚀 Future Scope (Evaluation 4)
+
 - Friend Requests
+- Real-time Chat (Socket.IO)
+- Notifications
+- Search Users
+- Profile Editing
+- Stories
+- Dark / Light Theme
 - Deployment
 
 ---
 
-## 📷 Screens
+# 📷 Screens
 
-- Home Page
+- Landing Page
 - Login Page
 - Signup Page
+- Dashboard
 
 ---
 
-## 👩‍💻 Developer
+# 👩‍💻 Developer
 
 **Aarushi Jain**
 
-B.Tech CSE
+B.Tech Computer Science & Engineering
 
 Assam down town University
 
 ---
 
-## ⭐ Future Scope
+# 📄 License
 
-- Complete MERN Authentication
-- Secure JWT Login
-- User Profiles
-- Post Sharing
-- Image Upload
-- Realtime Messaging
-- Notifications
-- Dark/Light Theme
-- Responsive Dashboard
-- Cloud Deployment
-
----
-
-## 📄 License
-
-This project is developed for learning purposes and academic evaluation.
+This project is developed for learning purposes, internship evaluation, and academic use.
