@@ -56,3 +56,47 @@ export const getPosts = async (req, res) => {
 
   }
 };
+
+// Like / Unlike Post
+export const toggleLike = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    if (!post) {
+      return res.status(404).json({
+        success: false,
+        message: "Post not found",
+      });
+    }
+
+    const userId = req.user._id.toString();
+
+    const alreadyLiked = post.likes.some(
+      (id) => id.toString() === userId
+    );
+
+    if (alreadyLiked) {
+      post.likes = post.likes.filter(
+        (id) => id.toString() !== userId
+      );
+    } else {
+      post.likes.push(req.user._id);
+    }
+
+    await post.save();
+
+    res.json({
+      success: true,
+      likes: post.likes.length,
+      liked: !alreadyLiked,
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
