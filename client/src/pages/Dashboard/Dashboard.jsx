@@ -3,18 +3,28 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { getProfile } from "../../api/authApi";
+import {
+  createPost,
+  getPosts,
+  toggleLike,
+} from "../../api/postApi";
 
 import Navbar from "../../components/Dashboard/Navbar";
 import ProfileCard from "../../components/Dashboard/ProfileCard";
-import FeedPlaceholder from "../../components/Dashboard/FeedPlaceholder";
+import CreatePost from "../../components/Feed/CreatePost";
+import PostList from "../../components/Dashboard/PostList";
 
 function Dashboard() {
+
   const [user, setUser] = useState(null);
+  const [posts, setPosts] = useState([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProfile = async () => {
+
+    const loadDashboard = async () => {
+
       const token = localStorage.getItem("token");
 
       if (!token) {
@@ -23,37 +33,81 @@ function Dashboard() {
       }
 
       try {
-        const response = await getProfile(token);
 
-        setUser(response.data.user);
-      } catch (error) {
+        const profile = await getProfile(token);
+        setUser(profile.data.user);
+
+        const allPosts = await getPosts(token);
+        setPosts(allPosts.data.posts);
+
+      } catch (err) {
+
         localStorage.removeItem("token");
         navigate("/login");
+
       }
+
     };
 
-    fetchProfile();
+    loadDashboard();
+
   }, []);
 
+  const handleCreatePost = async (caption) => {
+
+    try {
+
+      const token = localStorage.getItem("token");
+
+      await createPost(caption, token);
+
+      const updatedPosts = await getPosts(token);
+
+      setPosts(updatedPosts.data.posts);
+
+    } catch (err) {
+
+      alert("Failed to create post");
+
+    }
+
+  };
+
+  const handleLike = async (postId) => {
+    try {
+
+      const token = localStorage.getItem("token");
+
+      await toggleLike(postId, token);
+
+      const updatedPosts = await getPosts(token);
+
+      setPosts(updatedPosts.data.posts);
+
+    } catch (error) {
+
+      alert("Unable to like post");
+
+    }
+  };
+
   const handleLogout = () => {
+
     localStorage.removeItem("token");
+
     navigate("/login");
+
   };
 
   if (!user) {
-    return (
-      <div className="loading">
-        Loading Dashboard...
-      </div>
-    );
+    return <div className="loading">Loading...</div>;
   }
 
   return (
+
     <div className="dashboard-page">
 
       <Navbar onLogout={handleLogout} />
-
-      {/* Welcome Section */}
 
       <div className="dashboard-header">
 
@@ -71,18 +125,27 @@ function Dashboard() {
 
         <ProfileCard user={user} />
 
-        <FeedPlaceholder />
+        <div className="dashboard-right">
+
+          <CreatePost onCreate={handleCreatePost} />
+
+          <PostList
+            posts={posts}
+            onLike={handleLike}
+          />
+
+        </div>
 
       </div>
 
       <footer className="dashboard-footer">
-
         © 2026 SocialFeed | Built with ❤️ using MERN Stack
-
       </footer>
 
     </div>
+
   );
+
 }
 
 export default Dashboard;

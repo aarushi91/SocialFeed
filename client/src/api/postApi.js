@@ -1,23 +1,38 @@
 import axios from "axios";
 
-const API = axios.create({
-  baseURL: "http://localhost:5000/api/posts",
-});
+const API = "http://localhost:5000/api/posts";
 
 // Create Post
-export const createPost = (postData, token) => {
-  return API.post("/create", postData, {
+export const createPost = (caption, token) => {
+  return axios.post(
+    `${API}/create`,
+    { caption },
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+};
+
+// Get All Posts
+export const getPosts = (token) => {
+  return axios.get(API, {
     headers: {
       Authorization: token,
     },
   });
 };
 
-// Get All Posts
-export const getPosts = (token) => {
-  return API.get("/", {
-    headers: {
-      Authorization: token,
-    },
-  });
+// Like / Unlike Post
+export const toggleLike = (postId, token) => {
+  return axios.put(
+    `${API}/${postId}/like`,
+    {},
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
 };
