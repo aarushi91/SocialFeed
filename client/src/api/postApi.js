@@ -49,3 +49,12 @@ export const addComment = (postId, text, token) => {
     }
   );
 };
+
+// Delete Post
+export const deletePost = (postId, token) => {
+  return axios.delete(`${API}/${postId}`, {
+    headers: {
+      Authorization: token,
+    },
+  });
+};

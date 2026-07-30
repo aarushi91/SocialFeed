@@ -1,7 +1,13 @@
 import "./PostList.css";
 import { useState } from "react";
 
-function PostList({ posts, onLike, onComment }) {
+function PostList({
+  posts,
+  onLike,
+  onComment,
+  onDelete,
+  currentUser,
+}) {
 
   const [commentText, setCommentText] = useState({});
 
@@ -28,21 +34,36 @@ function PostList({ posts, onLike, onComment }) {
 
             <div className="post-header">
 
-              <img
-                src={post.author.avatar}
-                alt=""
-                className="post-avatar"
-              />
+              <div className="post-user">
 
-              <div>
+                <img
+                  src={post.author.avatar}
+                  alt=""
+                  className="post-avatar"
+                />
 
-                <h4>{post.author.fullName}</h4>
+                <div>
 
-                <span>
-                  @{post.author.username}
-                </span>
+                  <h4>{post.author.fullName}</h4>
+
+                  <span>
+                    @{post.author.username}
+                  </span>
+
+                </div>
 
               </div>
+
+              {currentUser._id === post.author._id && (
+
+                <button
+                  className="delete-btn"
+                  onClick={() => onDelete(post._id)}
+                >
+                  🗑 Delete
+                </button>
+
+              )}
 
             </div>
 

@@ -8,6 +8,7 @@ import {
   getPosts,
   toggleLike,
   addComment,
+  deletePost,
 } from "../../api/postApi";
 
 import Navbar from "../../components/Dashboard/Navbar";
@@ -107,6 +108,32 @@ function Dashboard() {
     }
   };
 
+  const handleDelete = async (postId) => {
+
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this post?"
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+
+      const token = localStorage.getItem("token");
+
+      await deletePost(postId, token);
+
+      const updatedPosts = await getPosts(token);
+
+      setPosts(updatedPosts.data.posts);
+
+    } catch (error) {
+
+      alert("Failed to delete post");
+
+    }
+
+  };
+
   const handleLogout = () => {
 
     localStorage.removeItem("token");
@@ -149,6 +176,8 @@ function Dashboard() {
             posts={posts}
             onLike={handleLike}
             onComment={handleComment}
+            onDelete={handleDelete}
+            currentUser={user}
           />
 
         </div>
