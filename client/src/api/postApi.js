@@ -36,3 +36,16 @@ export const toggleLike = (postId, token) => {
     }
   );
 };
+
+// Add Comment
+export const addComment = (postId, text, token) => {
+  return axios.post(
+    `${API}/${postId}/comment`,
+    { text },
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+};

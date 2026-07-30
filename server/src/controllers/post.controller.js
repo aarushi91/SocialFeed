@@ -38,6 +38,7 @@ export const getPosts = async (req, res) => {
 
     const posts = await Post.find()
       .populate("author", "fullName username avatar")
+      .populate("comments.user", "fullName username avatar")
       .sort({ createdAt: -1 });
 
     res.status(200).json({
@@ -98,5 +99,56 @@ export const toggleLike = async (req, res) => {
       success: false,
       message: "Server Error",
     });
+  }
+};
+
+// Add Comment
+export const addComment = async (req, res) => {
+  try {
+
+    const { text } = req.body;
+
+    if (!text || text.trim() === "") {
+      return res.status(400).json({
+        success: false,
+        message: "Comment cannot be empty",
+      });
+    }
+
+    const post = await Post.findById(req.params.id);
+
+    if (!post) {
+      return res.status(404).json({
+        success: false,
+        message: "Post not found",
+      });
+    }
+
+    post.comments.push({
+      user: req.user._id,
+      text,
+    });
+
+    await post.save();
+
+    const updatedPost = await Post.findById(post._id)
+      .populate("author", "fullName username avatar")
+      .populate("comments.user", "fullName username avatar");
+
+    res.status(201).json({
+      success: true,
+      message: "Comment added successfully",
+      post: updatedPost,
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+
   }
 };

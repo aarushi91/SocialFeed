@@ -7,6 +7,7 @@ import {
   createPost,
   getPosts,
   toggleLike,
+  addComment,
 } from "../../api/postApi";
 
 import Navbar from "../../components/Dashboard/Navbar";
@@ -91,6 +92,21 @@ function Dashboard() {
     }
   };
 
+  const handleComment = async (postId, text) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      await addComment(postId, text, token);
+
+      const updatedPosts = await getPosts(token);
+
+      setPosts(updatedPosts.data.posts);
+
+    } catch (error) {
+      alert("Failed to add comment");
+    }
+  };
+
   const handleLogout = () => {
 
     localStorage.removeItem("token");
@@ -132,6 +148,7 @@ function Dashboard() {
           <PostList
             posts={posts}
             onLike={handleLike}
+            onComment={handleComment}
           />
 
         </div>
