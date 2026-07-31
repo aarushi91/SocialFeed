@@ -1,8 +1,8 @@
 # 🌐 SocialFeed - MERN Social Media Platform
 
-SocialFeed is a full-stack social media web application built using the MERN Stack (MongoDB, Express.js, React.js, Node.js). It provides a modern platform where users can create accounts, securely log in, manage their profiles, and interact through future social networking features.
+SocialFeed is a full-stack social media web application built using the **MERN Stack (MongoDB, Express.js, React.js, Node.js)**. It allows users to register, securely log in, create posts, interact with other posts through likes and comments, and manage their own content.
 
-This project is being developed incrementally as part of an internship evaluation with multiple development phases.
+This project is being developed incrementally as part of an internship evaluation, with each phase introducing new features and improving the overall user experience.
 
 ---
 
@@ -38,17 +38,37 @@ This project is being developed incrementally as part of an internship evaluatio
 - User Login
 - Password Hashing using bcryptjs
 - JWT Token Generation
-- Protected Routes
 - Authentication Middleware
+- Protected Routes
 
 ### Dashboard
 
 - Protected Dashboard
-- User Profile
-- Dynamic User Information
+- Dynamic User Profile
 - Logout Functionality
-- Feed Placeholder
-- Responsive Dashboard UI
+- Responsive Dashboard Layout
+
+---
+
+## ✅ Evaluation 3 Completed
+
+### Feed System
+
+- Create Posts
+- Display Posts
+- Delete Own Posts
+- Like / Unlike Posts
+- Comment on Posts
+- Live Feed Refresh
+- Empty Feed UI
+
+### User Experience
+
+- Toast Notifications
+- Relative Time Display
+- Hover Animations
+- Better Feed Layout
+- Responsive Post Cards
 
 ---
 
@@ -56,11 +76,11 @@ This project is being developed incrementally as part of an internship evaluatio
 
 ## 🏠 Landing Page
 
-- Responsive Navigation Bar
+- Responsive Navigation
 - Hero Section
-- Feature Cards
-- Professional Footer
-- Modern Responsive Design
+- Features Section
+- Modern Footer
+- Responsive Design
 
 ---
 
@@ -73,34 +93,78 @@ This project is being developed incrementally as part of an internship evaluatio
 - Email Validation
 - Password Validation
 - Confirm Password
-- Password Hashing
-- MongoDB Storage
 - Duplicate Email Check
 - Duplicate Username Check
+- Password Hashing
+- MongoDB Storage
 
 ### Login
 
+- Secure JWT Authentication
 - Email Validation
 - Password Validation
-- JWT Authentication
-- Secure Login
 - Local Storage Token
-- Redirect to Dashboard
+- Protected Navigation
 
 ---
 
 ## 👤 Dashboard
 
 - Protected Route
-- User Profile
+- User Profile Card
 - Avatar
 - Username
 - Email
 - Bio
 - Online Status
-- Logout Button
-- Feed Preview
-- Responsive Design
+- Logout
+- Responsive Layout
+
+---
+
+## 📝 Post Management
+
+### Create Post
+
+- Create text posts
+- Instant feed refresh
+- Empty post validation
+
+### Read Posts
+
+- View all posts
+- Newest posts first
+- Author details
+- Relative timestamp
+
+### Like Posts
+
+- Like / Unlike
+- Live like count update
+
+### Comments
+
+- Add comments
+- Instant comment update
+- Comment count
+- Display all comments
+
+### Delete Posts
+
+- Delete only your own posts
+- Confirmation before deletion
+- Automatic feed refresh
+
+---
+
+## 🔔 User Experience
+
+- Toast Notifications
+- Loading States
+- Smooth Hover Animations
+- Empty Feed Illustration
+- Responsive UI
+- Modern Dashboard Design
 
 ---
 
@@ -113,6 +177,10 @@ This project is being developed incrementally as part of an internship evaluatio
 - Axios
 - CSS3
 - React Icons
+- React Toastify
+- date-fns
+
+---
 
 ## Backend
 
@@ -129,16 +197,15 @@ This project is being developed incrementally as part of an internship evaluatio
 
 # 📂 Project Structure
 
-```
-Real-Time-Social-Media/
+```text
+SocialFeed/
 
-│
 ├── client/
 │
 │   ├── src/
 │   │
-│   ├── assets/
 │   ├── api/
+│   ├── assets/
 │   ├── components/
 │   ├── pages/
 │   ├── App.jsx
@@ -154,7 +221,6 @@ Real-Time-Social-Media/
     ├── models/
     ├── routes/
     ├── server.js
-    │
     └── .env
 ```
 
@@ -224,7 +290,39 @@ POST /api/auth/login
 GET /api/auth/profile
 ```
 
-Requires JWT Token.
+---
+
+## Posts
+
+### Create Post
+
+```
+POST /api/posts/create
+```
+
+### Get All Posts
+
+```
+GET /api/posts
+```
+
+### Like / Unlike Post
+
+```
+PUT /api/posts/like/:id
+```
+
+### Add Comment
+
+```
+POST /api/posts/comment/:id
+```
+
+### Delete Post
+
+```
+DELETE /api/posts/:id
+```
 
 ---
 
@@ -233,59 +331,94 @@ Requires JWT Token.
 ## Frontend
 
 - Landing Page
-- Hero Section
-- Navbar
-- Features Section
-- Footer
 - Login Page
 - Signup Page
-- Dashboard
-- Protected Routing
+- Protected Dashboard
+- Profile Card
+- Create Post
+- Feed
+- Like System
+- Comment System
+- Delete Post
+- Toast Notifications
+- Responsive Design
+
+---
 
 ## Backend
 
 - Express Server
 - MongoDB Atlas
-- Mongoose
 - Authentication APIs
 - JWT Authentication
-- bcrypt Password Encryption
-- Profile API
+- Password Encryption
 - Authentication Middleware
-
----
-
-# 🚧 Upcoming (Evaluation 3)
-
-- Create Post
-- Display Posts
-- Like Posts
-- Comment System
-- Image Upload
-- Feed API
+- Profile API
 - Create Post API
+- Get Posts API
+- Like API
+- Comment API
+- Delete Post API
 
 ---
 
-# 🚀 Future Scope (Evaluation 4)
+# 📊 Current Progress
 
+### Authentication
+
+✅ Complete
+
+### Dashboard
+
+✅ Complete
+
+### Feed
+
+✅ Complete
+
+### CRUD Operations
+
+- ✅ Create
+- ✅ Read
+- ⏳ Update (Next Evaluation)
+- ✅ Delete
+
+### Like System
+
+✅ Complete
+
+### Comment System
+
+✅ Complete
+
+---
+
+# 🚧 Upcoming Features (Evaluation 4)
+
+- Edit Post
+- Image Upload
+- User Profile Editing
 - Friend Requests
 - Real-time Chat (Socket.IO)
 - Notifications
 - Search Users
-- Profile Editing
-- Stories
 - Dark / Light Theme
 - Deployment
+- Infinite Feed Scroll
 
 ---
 
 # 📷 Screens
 
 - Landing Page
-- Login Page
 - Signup Page
+- Login Page
 - Dashboard
+- User Profile
+- Feed
+- Create Post
+- Comments
+- Delete Post
 
 ---
 
