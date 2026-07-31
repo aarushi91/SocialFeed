@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { registerUser } from "../../api/authApi";
+import { toast } from "react-toastify";
 
 function Signup() {
 
@@ -64,16 +65,13 @@ function Signup() {
         password,
       });
 
-      alert(response.data.message);
+      toast.success("Registration Successful");
 
       navigate("/login");
 
     } catch (error) {
 
-      alert(
-        error.response?.data?.message ||
-        "Registration Failed"
-      );
+      toast.error("Registration Failed");
 
     } finally {
 

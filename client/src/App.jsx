@@ -5,6 +5,8 @@ import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import Dashboard from "./pages/Dashboard/Dashboard";
 
+import { ToastContainer } from "react-toastify";
+
 function App() {
 
     return (
@@ -34,6 +36,16 @@ function App() {
                 />
 
             </Routes>
+
+            <ToastContainer
+                position="top-right"
+                autoClose={2500}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                pauseOnHover
+                theme="dark"
+            />
 
         </BrowserRouter>
 

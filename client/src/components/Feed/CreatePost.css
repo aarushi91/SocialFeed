@@ -1,16 +1,18 @@
 .create-post{
 
-    background:rgba(255,255,255,.06);
+    background:#232937;
 
     backdrop-filter:blur(18px);
 
     border:1px solid rgba(255,255,255,.08);
 
-    border-radius:20px;
+    border-radius:18px;
 
     padding:25px;
 
     margin-bottom:25px;
+
+    width:100%;
 
 }
 
@@ -26,7 +28,7 @@
 
     width:100%;
 
-    min-height:120px;
+    min-height:130px;
 
     resize:none;
 
@@ -76,4 +78,13 @@
 
     background:#1d4ed8;
 
+}
+
+.create-post textarea{
+    transition: 0.3s;
+}
+
+.create-post textarea:focus{
+    border: 2px solid #3b82f6;
+    outline: none;
 }

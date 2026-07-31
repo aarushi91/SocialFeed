@@ -3,6 +3,7 @@ import { useState } from "react";
 import { FaComments, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../api/authApi";
+import { toast } from "react-toastify";
 
 function Login() {
 
@@ -51,13 +52,13 @@ function Login() {
       // Save JWT Token
       localStorage.setItem("token", response.data.token);
 
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       navigate("/dashboard");
 
     } catch (error) {
 
-      alert(
+      toast.error(
         error.response?.data?.message || "Login Failed"
       );
 

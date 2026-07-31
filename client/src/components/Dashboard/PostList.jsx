@@ -1,5 +1,6 @@
 import "./PostList.css";
 import { useState } from "react";
+import { formatDistanceToNow } from "date-fns";
 
 function PostList({
   posts,
@@ -19,7 +20,19 @@ function PostList({
 
       {posts.length === 0 ? (
 
-        <p>No posts yet.</p>
+        <div className="empty-feed">
+
+          <h2>📝</h2>
+
+          <h3>No Posts Yet</h3>
+
+          <p>
+
+            Be the first to share something with your friends!
+
+          </p>
+
+        </div>
 
       ) : (
 
@@ -32,9 +45,9 @@ function PostList({
 
             {/* Post Header */}
 
-            <div className="post-header">
+           <div className="post-header">
 
-              <div className="post-user">
+              <div className="user-info">
 
                 <img
                   src={post.author.avatar}
@@ -46,15 +59,22 @@ function PostList({
 
                   <h4>{post.author.fullName}</h4>
 
-                  <span>
-                    @{post.author.username}
-                  </span>
+                  <span>@{post.author.username}</span>
+
+                  <small className="post-time">
+
+                    {formatDistanceToNow(
+                      new Date(post.createdAt),
+                      { addSuffix: true }
+                    )}
+
+                  </small>
 
                 </div>
 
               </div>
 
-              {currentUser._id === post.author._id && (
+              {currentUser && currentUser._id === post.author._id && (
 
                 <button
                   className="delete-btn"

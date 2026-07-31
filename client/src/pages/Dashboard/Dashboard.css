@@ -3,6 +3,9 @@
     background:linear-gradient(135deg,#081120,#111827,#1b2140);
     position:relative;
     overflow:hidden;
+    max-width:1400px;
+    margin:auto;
+    padding:30px;
 }
 
 .dashboard-page::before{
@@ -35,10 +38,12 @@
     max-width:1300px;
     margin:auto;
     display:flex;
-    gap:30px;
+    gap:35px;
     padding:40px;
     position:relative;
     z-index:2;
+    align-items:flex-start;
+    width:100%;
 }
 
 .loading{
@@ -78,14 +83,30 @@
 }
 
 .dashboard-footer{
+    
+    margin-top:50px;
 
     text-align:center;
 
-    color:#64748b;
+    color:#94a3b8;
 
     padding:40px 0 20px;
 
     font-size:.95rem;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+.dashboard-right{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:30px;
 
 }
 

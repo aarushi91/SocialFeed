@@ -16,6 +16,8 @@ import ProfileCard from "../../components/Dashboard/ProfileCard";
 import CreatePost from "../../components/Feed/CreatePost";
 import PostList from "../../components/Dashboard/PostList";
 
+import { toast } from "react-toastify";
+
 function Dashboard() {
 
   const [user, setUser] = useState(null);
@@ -69,9 +71,11 @@ function Dashboard() {
 
     } catch (err) {
 
-      alert("Failed to create post");
+      toast.error("Failed to create post");
 
     }
+
+    toast.success("Post created!");
 
   };
 
@@ -88,7 +92,7 @@ function Dashboard() {
 
     } catch (error) {
 
-      alert("Unable to like post");
+      toast.error("Unable to like post");
 
     }
   };
@@ -104,8 +108,11 @@ function Dashboard() {
       setPosts(updatedPosts.data.posts);
 
     } catch (error) {
-      alert("Failed to add comment");
+      toast.error("Failed to add comment");
     }
+
+    toast.success("Comment added");
+
   };
 
   const handleDelete = async (postId) => {
@@ -128,9 +135,11 @@ function Dashboard() {
 
     } catch (error) {
 
-      alert("Failed to delete post");
+      toast.error("Failed to delete post");
 
     }
+
+    toast.success("Post deleted");
 
   };
 
