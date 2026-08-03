@@ -7,10 +7,15 @@ function PostList({
   onLike,
   onComment,
   onDelete,
+  onUpdate,
   currentUser,
 }) {
 
   const [commentText, setCommentText] = useState({});
+
+  const [editingPost, setEditingPost] = useState(null);
+
+  const [editedText, setEditedText] = useState("");
 
   return (
 
@@ -76,12 +81,29 @@ function PostList({
 
               {currentUser && currentUser._id === post.author._id && (
 
-                <button
-                  className="delete-btn"
-                  onClick={() => onDelete(post._id)}
-                >
-                  🗑 Delete
-                </button>
+                <div className="owner-actions">
+
+                  <button
+                    className="edit-btn"
+                    onClick={() => {
+
+                      setEditingPost(post._id);
+
+                      setEditedText(post.text);
+
+                    }}
+                  >
+                    ✏ Edit
+                  </button>
+
+                  <button
+                    className="delete-btn"
+                    onClick={() => onDelete(post._id)}
+                  >
+                    🗑 Delete
+                  </button>
+
+                </div>
 
               )}
 
@@ -89,9 +111,55 @@ function PostList({
 
             {/* Post Text */}
 
-            <p className="post-text">
-              {post.text}
-            </p>
+            {editingPost === post._id ? (
+
+              <textarea
+                className="edit-textarea"
+                value={editedText}
+                onChange={(e) => setEditedText(e.target.value)}
+              />
+
+            ) : (
+
+              <p className="post-text">
+                {post.text}
+              </p>
+
+            )}
+
+            {editingPost === post._id && (
+
+              <div className="edit-actions">
+
+                <button
+                  className="save-btn"
+                  onClick={() => {
+
+                    onUpdate(post._id, editedText);
+
+                    setEditingPost(null);
+
+                  }}
+                >
+                  Save
+                </button>
+
+                <button
+                  className="cancel-btn"
+                  onClick={() => {
+
+                    setEditingPost(null);
+
+                    setEditedText("");
+
+                  }}
+                >
+                  Cancel
+                </button>
+
+              </div>
+
+            )}
 
             {/* Like + Comment Count */}
 

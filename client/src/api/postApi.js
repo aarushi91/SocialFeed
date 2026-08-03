@@ -15,6 +15,19 @@ export const createPost = (caption, token) => {
   );
 };
 
+// Edit Posts
+export const updatePost = (postId, text, token) => {
+  return axios.put(
+    `${API}/${postId}`,
+    { text },
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+};
+
 // Get All Posts
 export const getPosts = (token) => {
   return axios.get(API, {

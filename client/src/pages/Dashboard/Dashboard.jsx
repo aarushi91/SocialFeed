@@ -9,6 +9,7 @@ import {
   toggleLike,
   addComment,
   deletePost,
+  updatePost,
 } from "../../api/postApi";
 
 import Navbar from "../../components/Dashboard/Navbar";
@@ -143,6 +144,28 @@ function Dashboard() {
 
   };
 
+  const handleUpdate = async (postId, text) => {
+
+    try {
+
+      const token = localStorage.getItem("token");
+
+      await updatePost(postId, text, token);
+
+      const updatedPosts = await getPosts(token);
+
+      setPosts(updatedPosts.data.posts);
+
+      toast.success("Post updated successfully");
+
+    } catch (err) {
+
+      toast.error("Unable to update post");
+
+    }
+
+  };
+
   const handleLogout = () => {
 
     localStorage.removeItem("token");
@@ -186,6 +209,7 @@ function Dashboard() {
             onLike={handleLike}
             onComment={handleComment}
             onDelete={handleDelete}
+            onUpdate={handleUpdate}
             currentUser={user}
           />
 

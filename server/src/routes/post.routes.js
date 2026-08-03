@@ -5,6 +5,7 @@ import {
   toggleLike,
   addComment,
   deletePost,
+  updatePost,
 } from "../controllers/post.controller.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 
@@ -21,6 +22,9 @@ router.put("/:id/like", authMiddleware, toggleLike);
 
 // Add Comment
 router.post("/:id/comment", authMiddleware, addComment);
+
+// Update Post
+router.put("/:id", authMiddleware, updatePost);
 
 // Delete Post
 router.delete("/:id", authMiddleware, deletePost);
