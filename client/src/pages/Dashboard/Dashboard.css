@@ -110,3 +110,21 @@
 
 }
 
+.search-posts{
+  margin:20px 0;
+}
+
+.search-posts input{
+  width:100%;
+  padding:14px 18px;
+  border:none;
+  border-radius:12px;
+  background:#2d3445;
+  color:white;
+  font-size:15px;
+  outline:none;
+}
+
+.search-posts input::placeholder{
+  color:#9ca3af;
+}

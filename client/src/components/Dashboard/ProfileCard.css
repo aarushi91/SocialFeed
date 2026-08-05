@@ -131,3 +131,29 @@
     font-size:.95rem;
 
 }
+
+.profile-stats{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:25px;
+}
+
+.stat-box{
+    flex:1;
+    background:#2d3445;
+    border-radius:12px;
+    padding:15px;
+    text-align:center;
+}
+
+.stat-box h3{
+    color:#4f8cff;
+    margin:0;
+    font-size:24px;
+}
+
+.stat-box span{
+    color:#cbd5e1;
+    font-size:13px;
+}

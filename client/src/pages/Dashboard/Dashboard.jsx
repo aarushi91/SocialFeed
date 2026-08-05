@@ -18,6 +18,7 @@ import ProfileCard from "../../components/Dashboard/ProfileCard";
 import CreatePost from "../../components/Feed/CreatePost";
 import PostList from "../../components/Dashboard/PostList";
 import ConfirmModal from "../../components/Common/ConfirmModal";
+import SkeletonPost from "../../components/Common/SkeletonPost";
 
 import { toast } from "react-toastify";
 
@@ -31,6 +32,7 @@ function Dashboard() {
   const [deletingPost, setDeletingPost] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
+  const [search, setSearch] = useState("");
 
   const navigate = useNavigate();
 
@@ -240,8 +242,24 @@ function Dashboard() {
   };
 
   if (!user) {
-    return <div className="loading">Loading...</div>;
+    return (
+      <div className="dashboard-page">
+        <SkeletonPost />
+        <SkeletonPost />
+        <SkeletonPost />
+      </div>
+    );
   }
+
+  const filteredPosts = posts.filter((post) => {
+    const value = search.toLowerCase();
+
+    return (
+      post.text.toLowerCase().includes(value) ||
+      post.author.fullName.toLowerCase().includes(value) ||
+      post.author.username.toLowerCase().includes(value)
+    );
+  });
 
   return (
 
@@ -263,7 +281,10 @@ function Dashboard() {
 
       <div className="dashboard-layout">
 
-        <ProfileCard user={user} />
+        <ProfileCard
+          user={user}
+          posts={posts}
+        />
 
         <div className="dashboard-right">
 
@@ -272,8 +293,18 @@ function Dashboard() {
             creating={creating}
           />
 
+          <div className="search-posts">
+            <input
+              type="text"
+              placeholder="🔍 Search posts..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+
           <PostList
-            posts={posts}
+            posts={filteredPosts}
+            search={search}
             onLike={handleLike}
             onComment={handleComment}
             onDelete={handleDelete}

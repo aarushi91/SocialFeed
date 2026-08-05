@@ -1,6 +1,20 @@
 import "./ProfileCard.css";
 
-function ProfileCard({ user }) {
+function ProfileCard({ user, posts }) {
+
+  const myPosts = posts.filter(
+    (post) => post.author._id === user._id
+  );
+
+  const totalLikes = myPosts.reduce(
+    (sum, post) => sum + post.likes.length,
+    0
+  );
+
+  const totalComments = myPosts.reduce(
+    (sum, post) => sum + post.comments.length,
+    0
+  );
 
   return (
 
@@ -35,6 +49,25 @@ function ProfileCard({ user }) {
         </p>
 
         <span>{user.bio}</span>
+
+        <div className="profile-stats">
+
+          <div className="stat-box">
+            <h3>{myPosts.length}</h3>
+            <span>Posts</span>
+          </div>
+
+          <div className="stat-box">
+            <h3>{totalLikes}</h3>
+            <span>Likes</span>
+          </div>
+
+          <div className="stat-box">
+            <h3>{totalComments}</h3>
+            <span>Comments</span>
+          </div>
+
+        </div>  
 
         <p>
           <strong>Verified</strong>
