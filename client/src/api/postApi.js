@@ -66,3 +66,27 @@ export const updatePost = (id, text, token) => {
     }
   );
 };
+
+export const deleteComment = (
+  postId,
+  commentId,
+  token
+) => {
+
+  return axios.delete(
+
+    `${API}/${postId}/comment/${commentId}`,
+
+    {
+
+      headers: {
+
+        Authorization: token,
+
+      },
+
+    }
+
+  );
+
+};

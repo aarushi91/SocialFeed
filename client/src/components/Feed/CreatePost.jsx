@@ -1,7 +1,7 @@
 import "./CreatePost.css";
 import { useState } from "react";
 
-function CreatePost({ onCreate }) {
+function CreatePost({ onCreate, creating }) {
   const [text, setText] = useState("");
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState("");
@@ -58,8 +58,21 @@ function CreatePost({ onCreate }) {
       <textarea
         placeholder="What's on your mind?"
         value={text}
+        maxLength={500}
         onChange={(e) => setText(e.target.value)}
       />
+
+      <div
+        className={`character-counter ${
+          text.length === 500
+            ? "danger"
+            : text.length > 450
+            ? "warning"
+            : ""
+        }`}
+      >
+        {text.length}/500
+      </div>
 
       <label
         htmlFor="post-image-input"
@@ -101,7 +114,7 @@ function CreatePost({ onCreate }) {
         disabled={loading}
         onClick={handleSubmit}
       >
-        {loading ? "Posting..." : "Post"}
+        {loading ? "Posting..." : "🚀 Post"}
       </button>
 
     </div>

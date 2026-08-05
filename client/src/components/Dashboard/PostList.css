@@ -123,16 +123,22 @@
     cursor:pointer;
     transition:.3s;
     font-weight:600;
-    transition: 0.3s;
+    transition: all 0.25s ease;
 }
 
-.like-btn:hover{
-    transform: scale(1.05);
+.like-btn.liked {
+  background: #ff4d6d;
+  color: white;
+  border-color: #ff4d6d;
 }
 
-.like-btn:hover{
-    background:#1d4ed8;
-    transform:translateY(-2px);
+.like-btn.liked:hover {
+  background: #ff3355;
+}
+
+.like-btn:disabled{
+    opacity:.7;
+    cursor:not-allowed;
 }
 
 .comment-box{
@@ -162,6 +168,14 @@
 
 .comment-box button:hover{
     background:#1d4ed8;
+}
+
+.comment-box button:disabled{
+
+    opacity:.7;
+
+    cursor:not-allowed;
+
 }
 
 .comments{
@@ -237,6 +251,14 @@
     background:#dc2626;
 
     transform: scale(1.05);
+
+}
+
+.delete-btn:disabled{
+
+    opacity:.7;
+
+    cursor:not-allowed;
 
 }
 
@@ -410,4 +432,37 @@
   object-fit: cover;
   max-height: 420px;
   border: 1px solid rgba(255,255,255,0.08);
+}
+
+.comment-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.delete-comment-btn{
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: #ef4444;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.delete-comment-btn:hover{
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(239,68,68,.35);
 }

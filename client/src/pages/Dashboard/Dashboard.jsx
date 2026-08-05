@@ -10,12 +10,14 @@ import {
   addComment,
   deletePost,
   updatePost,
+  deleteComment,
 } from "../../api/postApi";
 
 import Navbar from "../../components/Dashboard/Navbar";
 import ProfileCard from "../../components/Dashboard/ProfileCard";
 import CreatePost from "../../components/Feed/CreatePost";
 import PostList from "../../components/Dashboard/PostList";
+import ConfirmModal from "../../components/Common/ConfirmModal";
 
 import { toast } from "react-toastify";
 
@@ -23,6 +25,12 @@ function Dashboard() {
 
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
+  const [creating, setCreating] = useState(false);
+  const [likingPost, setLikingPost] = useState(null);
+  const [commentingPost, setCommentingPost] = useState(null);
+  const [deletingPost, setDeletingPost] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
 
   const navigate = useNavigate();
 
@@ -60,6 +68,8 @@ function Dashboard() {
 
   const handleCreatePost = async (formData) => {
     try {
+      setCreating(true);
+
       const token = localStorage.getItem("token");
 
       await createPost(formData, token);
@@ -71,12 +81,16 @@ function Dashboard() {
       toast.success("Post created!");
     } catch (err) {
       toast.error("Failed to create post");
-      throw err;
+    } finally {
+      setCreating(false);
     }
   };
 
   const handleLike = async (postId) => {
+
     try {
+
+      setLikingPost(postId);
 
       const token = localStorage.getItem("token");
 
@@ -90,11 +104,20 @@ function Dashboard() {
 
       toast.error("Unable to like post");
 
+    } finally {
+
+      setLikingPost(null);
+
     }
+
   };
 
   const handleComment = async (postId, text) => {
+
     try {
+
+      setCommentingPost(postId);
+
       const token = localStorage.getItem("token");
 
       await addComment(postId, text, token);
@@ -103,39 +126,57 @@ function Dashboard() {
 
       setPosts(updatedPosts.data.posts);
 
-    } catch (error) {
-      toast.error("Failed to add comment");
-    }
+      toast.success("Comment added");
 
-    toast.success("Comment added");
+    } catch (error) {
+
+      toast.error("Failed to add comment");
+
+    } finally {
+
+      setCommentingPost(null);
+
+    }
 
   };
 
-  const handleDelete = async (postId) => {
+  const handleDelete = (postId) => {
 
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this post?"
-    );
+    setSelectedPost(postId);
 
-    if (!confirmDelete) return;
+    setShowDeleteModal(true);
+
+  };
+
+  const confirmDelete = async () => {
 
     try {
 
+      setDeletingPost(selectedPost);
+
       const token = localStorage.getItem("token");
 
-      await deletePost(postId, token);
+      await deletePost(selectedPost, token);
 
       const updatedPosts = await getPosts(token);
 
       setPosts(updatedPosts.data.posts);
 
-    } catch (error) {
+      toast.success("Post deleted");
+
+    } catch (err) {
 
       toast.error("Failed to delete post");
 
-    }
+    } finally {
 
-    toast.success("Post deleted");
+      setDeletingPost(null);
+
+      setShowDeleteModal(false);
+
+      setSelectedPost(null);
+
+    }
 
   };
 
@@ -156,6 +197,35 @@ function Dashboard() {
     } catch (err) {
 
       toast.error("Unable to update post");
+
+    }
+
+  };
+
+  const handleDeleteComment = async (
+    postId,
+    commentId
+  ) => {
+
+    try {
+
+      const token = localStorage.getItem("token");
+
+      await deleteComment(
+        postId,
+        commentId,
+        token
+      );
+
+      const updatedPosts = await getPosts(token);
+
+      setPosts(updatedPosts.data.posts);
+
+      toast.success("Comment deleted");
+
+    } catch {
+
+      toast.error("Unable to delete comment");
 
     }
 
@@ -197,7 +267,10 @@ function Dashboard() {
 
         <div className="dashboard-right">
 
-          <CreatePost onCreate={handleCreatePost} />
+          <CreatePost
+            onCreate={handleCreatePost}
+            creating={creating}
+          />
 
           <PostList
             posts={posts}
@@ -206,6 +279,24 @@ function Dashboard() {
             onDelete={handleDelete}
             onUpdate={handleUpdate}
             currentUser={user}
+            likingPost={likingPost}
+            commentingPost={commentingPost}
+            deletingPost={deletingPost}
+            onDeleteComment={handleDeleteComment}
+          />
+
+          <ConfirmModal
+            isOpen={showDeleteModal}
+            title="Delete Post?"
+            message="This action cannot be undone. Are you sure you want to permanently delete this post?"
+            onConfirm={confirmDelete}
+            onCancel={() => {
+
+              setShowDeleteModal(false);
+
+              setSelectedPost(null);
+
+            }}
           />
 
         </div>

@@ -282,3 +282,79 @@ export const updatePost = async (req, res) => {
   }
 
 };
+
+export const deleteComment = async (req, res) => {
+
+  try {
+
+    const { postId, commentId } = req.params;
+
+    const post = await Post.findById(postId);
+
+    if (!post) {
+
+      return res.status(404).json({
+        success: false,
+        message: "Post not found",
+      });
+
+    }
+
+    const comment = post.comments.id(commentId);
+
+    if (!comment) {
+
+      return res.status(404).json({
+        success: false,
+        message: "Comment not found",
+      });
+
+    }
+
+    // Only the comment owner can delete it
+
+    if (
+      comment.user.toString() !==
+      req.user._id.toString()
+    ) {
+
+      return res.status(403).json({
+        success: false,
+        message: "Unauthorized",
+      });
+
+    }
+
+    comment.deleteOne();
+
+    await post.save();
+
+    const updatedPost = await Post.findById(postId)
+      .populate("author", "fullName username avatar")
+      .populate("comments.user", "fullName username avatar");
+
+    res.json({
+
+      success: true,
+
+      message: "Comment deleted",
+
+      post: updatedPost,
+
+    });
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).json({
+
+      success: false,
+
+      message: "Server Error",
+
+    });
+
+  }
+
+};

@@ -6,6 +6,7 @@ import {
   addComment,
   deletePost,
   updatePost,
+  deleteComment
 } from "../controllers/post.controller.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import upload from "../middleware/uploadMiddleware.js";
@@ -34,5 +35,11 @@ router.put("/:id", authMiddleware, updatePost);
 
 // Delete Post
 router.delete("/:id", authMiddleware, deletePost);
+
+router.delete(
+  "/:postId/comment/:commentId",
+  authMiddleware,
+  deleteComment
+);
 
 export default router;
