@@ -3,33 +3,47 @@ import Post from "../models/Post.js";
 export const createPost = async (req, res) => {
   try {
 
-    const { caption } = req.body;
+    const { text } = req.body;
 
-    if (!caption || caption.trim() === "") {
+    let image = "";
+
+    if (req.file) {
+      image = `/uploads/${req.file.filename}`;
+    }
+
+    // Reject only if BOTH are missing
+    if ((!text || text.trim() === "") && !image) {
       return res.status(400).json({
         success: false,
-        message: "Post caption is required",
+        message: "Please add text or an image",
       });
     }
 
     const newPost = await Post.create({
       author: req.user._id,
-      text: caption,
+      text: text || "",
+      image,
     });
+
+    const populatedPost = await Post.findById(newPost._id)
+      .populate("author", "fullName username avatar");
 
     res.status(201).json({
       success: true,
       message: "Post created successfully",
-      post: newPost,
+      post: populatedPost,
     });
 
-  } catch(error){
-    console.error(error);
+  } catch (error) {
+
+    console.log(error);
+
     res.status(500).json({
-        success:false,
-        message:error.message
+      success: false,
+      message: "Server Error",
     });
-}
+
+  }
 };
 
 // Get All Posts
@@ -107,6 +121,14 @@ export const addComment = async (req, res) => {
   try {
 
     const { text } = req.body;
+
+    let image = "";
+
+    if (req.file) {
+
+      image = `/uploads/${req.file.filename}`;
+
+    }
 
     if (!text || text.trim() === "") {
       return res.status(400).json({
@@ -200,13 +222,11 @@ export const updatePost = async (req, res) => {
 
     const { text } = req.body;
 
-    if (!text || text.trim() === "") {
-
+    if ((!text || text.trim() === "") && !req.file) {
       return res.status(400).json({
         success: false,
-        message: "Post text cannot be empty",
+        message: "Please add some text or an image",
       });
-
     }
 
     const post = await Post.findById(req.params.id);

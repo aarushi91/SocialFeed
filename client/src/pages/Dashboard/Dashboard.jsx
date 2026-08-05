@@ -58,26 +58,21 @@ function Dashboard() {
 
   }, []);
 
-  const handleCreatePost = async (caption) => {
-
+  const handleCreatePost = async (formData) => {
     try {
-
       const token = localStorage.getItem("token");
 
-      await createPost(caption, token);
+      await createPost(formData, token);
 
       const updatedPosts = await getPosts(token);
 
       setPosts(updatedPosts.data.posts);
 
+      toast.success("Post created!");
     } catch (err) {
-
       toast.error("Failed to create post");
-
+      throw err;
     }
-
-    toast.success("Post created!");
-
   };
 
   const handleLike = async (postId) => {

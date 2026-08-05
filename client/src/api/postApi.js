@@ -2,33 +2,19 @@ import axios from "axios";
 
 const API = "http://localhost:5000/api/posts";
 
-// Create Post
-export const createPost = (caption, token) => {
+export const createPost = (formData, token) => {
   return axios.post(
     `${API}/create`,
-    { caption },
+    formData,
     {
       headers: {
         Authorization: token,
+        "Content-Type": "multipart/form-data",
       },
     }
   );
 };
 
-// Edit Posts
-export const updatePost = (postId, text, token) => {
-  return axios.put(
-    `${API}/${postId}`,
-    { text },
-    {
-      headers: {
-        Authorization: token,
-      },
-    }
-  );
-};
-
-// Get All Posts
 export const getPosts = (token) => {
   return axios.get(API, {
     headers: {
@@ -37,10 +23,9 @@ export const getPosts = (token) => {
   });
 };
 
-// Like / Unlike Post
-export const toggleLike = (postId, token) => {
+export const toggleLike = (id, token) => {
   return axios.put(
-    `${API}/${postId}/like`,
+    `${API}/${id}/like`,
     {},
     {
       headers: {
@@ -50,10 +35,9 @@ export const toggleLike = (postId, token) => {
   );
 };
 
-// Add Comment
-export const addComment = (postId, text, token) => {
+export const addComment = (id, text, token) => {
   return axios.post(
-    `${API}/${postId}/comment`,
+    `${API}/${id}/comment`,
     { text },
     {
       headers: {
@@ -63,11 +47,22 @@ export const addComment = (postId, text, token) => {
   );
 };
 
-// Delete Post
-export const deletePost = (postId, token) => {
-  return axios.delete(`${API}/${postId}`, {
+export const deletePost = (id, token) => {
+  return axios.delete(`${API}/${id}`, {
     headers: {
       Authorization: token,
     },
   });
+};
+
+export const updatePost = (id, text, token) => {
+  return axios.put(
+    `${API}/${id}`,
+    { text },
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
 };

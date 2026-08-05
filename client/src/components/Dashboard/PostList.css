@@ -402,3 +402,12 @@
     background:#dc2626;
 
 }
+
+.post-image {
+  width: 100%;
+  margin-top: 12px;
+  border-radius: 12px;
+  object-fit: cover;
+  max-height: 420px;
+  border: 1px solid rgba(255,255,255,0.08);
+}

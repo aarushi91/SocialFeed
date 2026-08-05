@@ -121,9 +121,21 @@ function PostList({
 
             ) : (
 
-              <p className="post-text">
-                {post.text}
-              </p>
+              <>
+
+                <p className="post-text">
+                  {post.text}
+                </p>
+
+                {post.image && (
+                  <img
+                    src={`http://localhost:5000${post.image}`}
+                    alt="Post"
+                    className="post-image"
+                  />
+                )}
+
+              </>
 
             )}
 

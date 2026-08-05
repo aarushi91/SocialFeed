@@ -8,11 +8,17 @@ import {
   updatePost,
 } from "../controllers/post.controller.js";
 import authMiddleware from "../middleware/authMiddleware.js";
+import upload from "../middleware/uploadMiddleware.js";
 
 const router = express.Router();
 
 // Create Post
-router.post("/create", authMiddleware, createPost);
+router.post(
+  "/create",
+  authMiddleware,
+  upload.single("image"),
+  createPost
+);
 
 // Get All Posts
 router.get("/", authMiddleware, getPosts);
