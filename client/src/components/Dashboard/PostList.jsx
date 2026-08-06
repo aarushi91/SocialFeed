@@ -3,6 +3,7 @@ import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { FiTrash2 } from "react-icons/fi";
 import ImageModal from "./ImageModal";
+import { BASE_URL } from "../config";
 
 function PostList({
   posts,
@@ -131,12 +132,12 @@ function PostList({
 
                     {post.image && (
                       <img
-                        src={`http://localhost:5000${post.image}`}
+                        src={`${BASE_URL}${post.image}`}
                         alt="Post"
                         className="post-image"
                         onClick={() =>
                           setSelectedImage(
-                            `http://localhost:5000${post.image}`
+                            `${BASE_URL}${post.image}`
                           )
                         }
                       />

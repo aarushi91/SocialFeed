@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API = "http://localhost:5000/api/posts";
+import { BASE_URL } from "../config";
+
+const API = `${BASE_URL}/api/posts`;
 
 export const createPost = (formData, token) => {
   return axios.post(
