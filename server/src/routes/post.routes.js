@@ -31,7 +31,12 @@ router.put("/:id/like", authMiddleware, toggleLike);
 router.post("/:id/comment", authMiddleware, addComment);
 
 // Update Post
-router.put("/:id", authMiddleware, updatePost);
+router.put(
+  "/:id",
+  authMiddleware,
+  upload.single("image"),
+  updatePost
+);
 
 // Delete Post
 router.delete("/:id", authMiddleware, deletePost);

@@ -1,4 +1,6 @@
 import Post from "../models/Post.js";
+import cloudinary from "../config/cloudinary.js";
+import fs from "fs";
 
 export const createPost = async (req, res) => {
   try {
@@ -8,7 +10,13 @@ export const createPost = async (req, res) => {
     let image = "";
 
     if (req.file) {
-      image = `/uploads/${req.file.filename}`;
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: "socialfeed/posts",
+      });
+
+      image = result.secure_url;
+
+      fs.unlinkSync(req.file.path);
     }
 
     // Reject only if BOTH are missing
@@ -251,6 +259,16 @@ export const updatePost = async (req, res) => {
     }
 
     post.text = text;
+
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: "socialfeed/posts",
+      });
+
+      post.image = result.secure_url;
+
+      fs.unlinkSync(req.file.path);
+    }
 
     await post.save();
 
