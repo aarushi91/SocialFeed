@@ -3,7 +3,7 @@ import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { FiTrash2 } from "react-icons/fi";
 import ImageModal from "./ImageModal";
-import { BASE_URL } from "../config";
+import { BASE_URL } from "../../config";
 
 function PostList({
   posts,
